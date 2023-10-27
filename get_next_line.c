@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 14:12:46 by asemsey           #+#    #+#             */
-/*   Updated: 2023/10/23 20:48:10 by asemsey          ###   ########.fr       */
+/*   Updated: 2023/10/27 11:09:19 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
+	{
+		free(next);
+		next = NULL;
 		return (NULL);
-	// ft that returns an allocated str of reads until \n
-		// if static is present, move static to line first and free static
+	}
 	line = read_str(fd, next);
 	if (!line)
 	{
@@ -32,7 +34,6 @@ char	*get_next_line(int fd)
 		next = NULL;
 		return (NULL);
 	}
-	// ft crops line and returns the rest in static, with malloc
 	next = copy_to_next(line);
 	if (!next)
 	{
@@ -99,7 +100,7 @@ char	*read_str(int fd, char *next)
 	line = move_next(next);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!line || !buffer)
-		return (free(line), free(buffer), NULL); //free
+		return (free(line), free(buffer), NULL); //?
 	while (!ft_strchr(line, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
@@ -114,12 +115,10 @@ char	*read_str(int fd, char *next)
 	if (bytes_read < 0)
 	{
 		free(line);
-		line = NULL;
 		return (NULL);
 	}
 	return (line);
 }
-
 
 
 

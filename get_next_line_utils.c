@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 14:31:00 by asemsey           #+#    #+#             */
-/*   Updated: 2023/10/23 16:07:23 by asemsey          ###   ########.fr       */
+/*   Updated: 2023/10/27 11:09:13 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	i = 0;
 	s = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!s || (!s1 && !s2))
-		return (NULL);	//free(s1)?
+		return (NULL);
 	while (s1 && s1[i] != '\0')
 	{
 		s[i] = s1[i];
