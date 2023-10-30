@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 14:12:46 by asemsey           #+#    #+#             */
-/*   Updated: 2023/10/27 12:01:42 by asemsey          ###   ########.fr       */
+/*   Updated: 2023/10/27 12:30:11 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 
 char	*read_str(int fd, char *next);
@@ -18,24 +18,24 @@ char	*copy_to_next(char *line);
 
 char	*get_next_line(int fd)
 {
-	static char	*next;
+	static char	*next[FD_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 	{
-		free(next);
-		next = NULL;
+		free(next[fd]);
+		next[fd] = NULL;
 		return (NULL);
 	}
-	line = read_str(fd, next);
+	line = read_str(fd, next[fd]);
 	if (!line)
 	{
-		free(next);
-		next = NULL;
+		free(next[fd]);
+		next[fd] = NULL;
 		return (NULL);
 	}
-	next = copy_to_next(line);
-	if (!next)
+	next[fd] = copy_to_next(line);
+	if (!next[fd])
 	{
 		free(line);
 		return (NULL);
@@ -119,39 +119,3 @@ char	*read_str(int fd, char *next)
 	}
 	return (line);
 }
-
-
-
-
-// void leak(void)
-// {
-// 	system("leaks a.out");
-// }
-
-// int main(void)
-// {
-// 	int		fd;
-// 	int		i;
-// 	char	*line;
-
-// 	i = 30;
-// 	fd = open("example.txt", O_RDONLY);
-// 	while (i > 0)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (!line)
-// 		{
-// 			printf("\nft returned NULL\n");
-// 			// leak();
-// 			return (0);
-// 		}
-// 		printf("%s", line);
-// 		free(line);
-// 		i--;
-// 	}
-// 	// leak();
-// 	return (0);
-// }
-
-// cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c && ./a.out
-// cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 -fsanitize=address get_next_line.c get_next_line_utils.c && ./a.out
