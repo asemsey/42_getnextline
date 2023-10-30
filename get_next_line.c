@@ -6,12 +6,11 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 14:12:46 by asemsey           #+#    #+#             */
-/*   Updated: 2023/10/27 12:01:42 by asemsey          ###   ########.fr       */
+/*   Updated: 2023/10/30 09:29:45 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*read_str(int fd, char *next);
 char	*copy_to_next(char *line);
@@ -96,20 +95,20 @@ char	*read_str(int fd, char *next)
 	char	*line;
 	char	*buffer;
 	int		bytes_read;
-	
+
 	line = move_next(next);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!line || !buffer)
-		return (free(line), free(buffer), NULL); //?
+		return (free(line), free(buffer), NULL);
 	while (!ft_strchr(line, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)
-			break;
+			break ;
 		buffer[bytes_read] = '\0';
 		line = ft_strjoin(line, buffer);
 		if (!line)
-			break;
+			break ;
 	}
 	free(buffer);
 	if (bytes_read < 0)
@@ -119,39 +118,3 @@ char	*read_str(int fd, char *next)
 	}
 	return (line);
 }
-
-
-
-
-// void leak(void)
-// {
-// 	system("leaks a.out");
-// }
-
-// int main(void)
-// {
-// 	int		fd;
-// 	int		i;
-// 	char	*line;
-
-// 	i = 30;
-// 	fd = open("example.txt", O_RDONLY);
-// 	while (i > 0)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (!line)
-// 		{
-// 			printf("\nft returned NULL\n");
-// 			// leak();
-// 			return (0);
-// 		}
-// 		printf("%s", line);
-// 		free(line);
-// 		i--;
-// 	}
-// 	// leak();
-// 	return (0);
-// }
-
-// cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c && ./a.out
-// cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 -fsanitize=address get_next_line.c get_next_line_utils.c && ./a.out

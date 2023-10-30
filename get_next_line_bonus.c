@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 14:12:46 by asemsey           #+#    #+#             */
-/*   Updated: 2023/10/27 12:30:11 by asemsey          ###   ########.fr       */
+/*   Updated: 2023/10/30 09:33:47 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,20 @@ char	*read_str(int fd, char *next)
 	char	*line;
 	char	*buffer;
 	int		bytes_read;
-	
+
 	line = move_next(next);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!line || !buffer)
-		return (free(line), free(buffer), NULL); //?
+		return (free(line), free(buffer), NULL);
 	while (!ft_strchr(line, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)
-			break;
+			break ;
 		buffer[bytes_read] = '\0';
 		line = ft_strjoin(line, buffer);
 		if (!line)
-			break;
+			break ;
 	}
 	free(buffer);
 	if (bytes_read < 0)

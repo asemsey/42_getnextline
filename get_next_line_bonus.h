@@ -6,7 +6,7 @@
 /*   By: asemsey <asemsey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 20:49:22 by asemsey           #+#    #+#             */
-/*   Updated: 2023/10/27 12:29:40 by asemsey          ###   ########.fr       */
+/*   Updated: 2023/10/30 09:34:13 by asemsey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
+#  define BUFFER_SIZE 10
 # endif
 
 # ifndef FD_MAX
-# define FD_MAX 8188
+#  define FD_MAX 8188
 # endif
 
 # include <stdlib.h>
