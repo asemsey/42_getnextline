@@ -9,7 +9,7 @@ this project was developed as part of the 42 curriculum, where the goal was to d
 To use `get_next_line` in your project, clone the repository and include the necessary source files:
 
 ```bash
-git clone [https://github.com/yourusername/get_next_line.git](https://github.com/asemsey/42_getnextline.git)
+git clone https://github.com/asemsey/42_getnextline.git
 cd 42_getnextline
 ```
 either compile the files into a library and link it in your project's Makefile:
